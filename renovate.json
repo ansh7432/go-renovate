@@ -1,0 +1,57 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":semanticCommits",
+    ":dependencyDashboard",
+    "security:openssf-scorecard"
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security", "vulnerability"],
+    "assignees": ["ansh7432"],
+    "reviewers": ["ansh7432"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "separateMinorPatch": true,
+  "separateMajorMinor": true,
+  "separateMultipleMajor": true,
+  "prCreation": "immediate",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "schedule": ["at any time"],
+  "timezone": "America/New_York",
+  "golang": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["gomod"],
+      "enabled": true,
+      "schedule": ["at any time"],
+      "vulnerabilityAlerts": {
+        "enabled": true
+      },
+      "labels": ["go", "dependencies"],
+      "commitMessagePrefix": "fix(deps): ",
+      "semanticCommitType": "fix",
+      "semanticCommitScope": "deps"
+    },
+    {
+      "matchPackageNames": ["github.com/gorilla/mux"],
+      "labels": ["critical-security"],
+      "assignees": ["ansh7432"],
+      "reviewers": ["ansh7432"],
+      "prPriority": 10
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)Dockerfile$"],
+      "matchStrings": ["FROM golang:(?<currentValue>.*?)\\s"],
+      "depNameTemplate": "golang",
+      "datasourceTemplate": "docker"
+    }
+  ]
+}
