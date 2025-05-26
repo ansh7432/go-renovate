@@ -236,5 +236,3 @@ For questions about this assignment or Renovate configuration:
 - 🔧 Review the [renovate.json](./renovate.json) configuration
 
 ---
-
-**⚠️ Disclaimer**: This project contains intentionally vulnerable dependencies for educational purposes. Do not use in production environments.
